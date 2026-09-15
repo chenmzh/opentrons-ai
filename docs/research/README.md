@@ -1,9 +1,13 @@
 # OT-2 motor-music research report
 
-Read the [Chinese research manuscript](ot2-motor-music-paper.zh.md) for the
-question, methods, results, discussion, limitations and references. It is an
-exploratory report on one robot, not a peer-reviewed publication. The English
-title is provided for indexing; the full text is Chinese.
+The report is available in both languages, with the same methods, numerical
+results, figures and limitations. It is an exploratory single-device study,
+not a peer-reviewed publication.
+
+| Language | Manuscript | PDF |
+|---|---|---|
+| English | [Read online](ot2-motor-music-paper.en.md) | [Download PDF](pdf/ot2-motor-music-paper.en.pdf) |
+| 中文 | [在线阅读](ot2-motor-music-paper.zh.md) | [下载 PDF](pdf/ot2-motor-music-paper.zh.pdf) |
 
 `data/evidence.json` is the reviewed numerical supplement, including per-note
 command times, class predictions, qualified harmonic measurements, anonymized experiment labels,
@@ -24,21 +28,33 @@ PYTHONPATH=src .venv-research/bin/python -m opentrons_ai.research.build_paper
 ```
 
 The builder reconciles timing denominators and classification counts, then writes
-SVG, PDF and PNG figures plus a self-contained HTML article to `build/research/`.
-Open the HTML in a browser to read or print. Generated exports are ignored by Git.
+SVG, PDF and PNG figures plus self-contained Chinese and English HTML articles to `build/research/`.
+Open either HTML file in a browser to read or print. Intermediate exports are
+ignored by Git; the two reviewed article PDFs in `pdf/` are versioned publication
+artifacts explicitly requested by the maintainer. Use `--language en` or
+`--language zh` to render only one language.
 For an automated article PDF after installing the frontend dependencies:
 
 ```bash
 pnpm --dir frontend install --frozen-lockfile
 pnpm --dir frontend exec playwright install chromium
-node frontend/scripts/export-paper.mjs \
-  build/research/ot2-motor-music-paper.zh.html \
-  build/research/ot2-motor-music-paper.zh.pdf
+for lang in zh en; do
+  node frontend/scripts/export-paper.mjs \
+    "build/research/ot2-motor-music-paper.$lang.html" \
+    "build/research/ot2-motor-music-paper.$lang.pdf"
+  PYTHONPATH=src .venv-research/bin/python -m opentrons_ai.research.optimize_pdf \
+    "build/research/ot2-motor-music-paper.$lang.pdf" \
+    "docs/research/pdf/ot2-motor-music-paper.$lang.pdf"
+done
 ```
 
-Install a Chinese font such as Noto Serif CJK for Chinese PDF rendering.
-The manuscript remains readable directly on GitHub, with numerical tables and
-figure captions; figures are embedded in the generated HTML/PDF.
+The Chinese renderer uses Fontconfig and installed Noto Sans CJK fonts, converts
+only the needed glyphs to a compact embedded TrueType subset, and preserves the
+font's license metadata. It uses regular-weight text to avoid large synthetic
+bold glyph outlines. The English renderer uses Liberation Serif or Times New
+Roman. PDF stream optimization preserves searchable text and vector figures.
+Both manuscripts remain readable directly on GitHub; the downloadable PDFs
+include the figures and their captions.
 
 ## Reanalyse a local original recording
 

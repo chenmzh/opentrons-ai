@@ -130,6 +130,7 @@ def figures(data, output):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=Path("build/research"))
+    parser.add_argument("--language", choices=["zh", "en", "all"], default="all")
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[3]
     source = root / "docs/research"
@@ -139,10 +140,17 @@ def main():
     data = json.loads((source / "data/evidence.json").read_text())
     validate_evidence(data)
     figures(data, output)
+    languages = ["zh", "en"] if args.language == "all" else [args.language]
+    for language in languages:
+        render_article(source, output, language)
+
+
+def render_article(source, output, language):
+    """Render a complete manuscript with its figures and attached captions."""
 
     import markdown
 
-    manuscript = (source / "ot2-motor-music-paper.zh.md").read_text()
+    manuscript = (source / f"ot2-motor-music-paper.{language}.md").read_text()
     for token, filename in [("RANGE", "range"), ("RHYTHM", "rhythm")]:
         encoded = base64.b64encode((output / f"figure-{filename}.svg").read_bytes()).decode()
         manuscript = manuscript.replace(
@@ -151,7 +159,7 @@ def main():
         )
     body = markdown.markdown(manuscript, extensions=["tables", "fenced_code"])
     body = re.sub(
-        r"</figure>\s*<p>(<strong>图 [12]．.*?</p>)",
+        r"</figure>\s*<p>(<strong>(?:图 [12]．|Figure [12]\. ).*?</p>)",
         r"<figcaption><p>\1</figcaption></figure>",
         body,
         flags=re.S,
@@ -180,9 +188,17 @@ def main():
     a { color: #22577a; text-decoration: none; overflow-wrap: anywhere; }
     @media print { body { max-width: none; padding: 0; margin: 0; font-size: 10pt; } }
     """
-    html = f'<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>OT-2 motor music study</title><style>{css}</style><body>{body}</body></html>'
-    (output / "ot2-motor-music-paper.zh.html").write_text(html)
-    print(f"Evidence verified; report: {output / 'ot2-motor-music-paper.zh.html'}")
+    if language == "zh":
+        from .report_fonts import chinese_font_css
+
+        css += chinese_font_css(manuscript, output)
+    if language == "en":
+        css += "body { font-family: 'Liberation Serif', 'Times New Roman', serif; }"
+    locale = "zh-CN" if language == "zh" else "en"
+    html = f'<!doctype html><html lang="{locale}"><meta charset="utf-8"><title>OT-2 motor music study ({language})</title><style>{css}</style><body>{body}</body></html>'
+    destination = output / f"ot2-motor-music-paper.{language}.html"
+    destination.write_text(html)
+    print(f"Evidence verified; report: {destination}")
 
 
 if __name__ == "__main__":

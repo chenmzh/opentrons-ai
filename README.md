@@ -4,12 +4,16 @@ A repository for building AI-assisted control of an Opentrons OT-2 liquid-handli
 
 ## Motor music experiment and research report
 
-The [research article (中文)](docs/research/ot2-motor-music-paper.zh.md)
+The research article is available in [English](docs/research/ot2-motor-music-paper.en.md)
+and [中文](docs/research/ot2-motor-music-paper.zh.md). It
 documents two completed pitch-range and rhythm experiments on one OT-2,
 including methods, results, uncertainty and references. The
 [reproducibility guide](docs/research/README.md) provides reviewed numerical
 evidence, offline acoustic analysis, and commands to build figures and an HTML/PDF
 article. Original microphone recordings and runtime logs remain local.
+
+Download the [English PDF](docs/research/pdf/ot2-motor-music-paper.en.pdf) or
+[中文 PDF](docs/research/pdf/ot2-motor-music-paper.zh.pdf).
 
 Three [complete song arrangements](docs/ot2-music-full-arrangements.md) have
 direct Python launchers, with local `--dry-run` and robot `--simulate-only` modes.

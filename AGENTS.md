@@ -10,7 +10,7 @@ This project is for AI-assisted control of an Opentrons OT-2. The foundation das
 - `protocols/` for versioned Opentrons protocols and `assets/` for labware definitions.
 - `docs/` for design notes and user-facing documentation.
 
-Do not commit generated outputs, caches, virtual environments, credentials, or large experimental datasets. Add them to `.gitignore` instead. The reviewed Chinese and English PDFs in `docs/research/pdf/` are an explicit publication exception requested by the maintainer.
+Do not commit generated outputs, caches, virtual environments, credentials, or large experimental datasets. Add them to `.gitignore` instead. The reviewed Chinese and English PDFs in `docs/research/pdf/` and LaTeX source packages in `docs/research/latex/` are explicit publication exceptions requested by the maintainer.
 
 ## Build, Test, and Development Commands
 

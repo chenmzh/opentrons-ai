@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="740" viewBox="0 0 1100 740" role="img" aria-labelledby="title desc">
+  <title id="title">Human–AI experimental workflow with acoustic feedback between runs</title>
+  <desc id="desc">The operator sets goals and constraints and receives reports from the agent. The agent produces code and parameters for deterministic compilation and validation. Host transport uploads a complete protocol for robot execution. A microphone and numerical analysis return measurements to the agent before the next experiment. Playback has no live acoustic correction.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#425b6c"/></marker>
+  </defs>
+  <rect width="1100" height="740" fill="white"/>
+  <g font-family="Liberation Sans,Arial,sans-serif" fill="#18212a" text-anchor="middle">
+    <rect x="80" y="20" width="940" height="105" rx="10" fill="#f7efe4" stroke="#9e7041" stroke-width="2"/>
+    <text x="550" y="52" font-size="24" font-weight="bold">Human operator</text>
+    <text x="550" y="82" font-size="20">Goals · motion constraints · phrase planning ideas · physical microphone setup</text>
+    <text x="550" y="109" font-size="19">Research framing and review of interpretation</text>
+    <rect x="60" y="220" width="410" height="130" rx="10" fill="#eaf2f7" stroke="#22577a" stroke-width="2"/>
+    <text x="265" y="256" font-size="23" font-weight="bold">Tool-using coding agent</text>
+    <text x="265" y="290" font-size="20">Design tests · implement protocols</text>
+    <text x="265" y="320" font-size="20">Interpret results · revise next experiment</text>
+    <rect x="630" y="220" width="410" height="130" rx="10" fill="#f0f3f5" stroke="#647784" stroke-width="2"/>
+    <text x="835" y="256" font-size="23" font-weight="bold">Compile and validate</text>
+    <text x="835" y="290" font-size="20">Score → bounded phrase trajectory</text>
+    <text x="835" y="320" font-size="20">Coordinates · speed · fixed Z · simulation</text>
+    <rect x="630" y="480" width="410" height="130" rx="10" fill="#f0f3f5" stroke="#647784" stroke-width="2"/>
+    <text x="835" y="516" font-size="23" font-weight="bold">Transport and robot execution</text>
+    <text x="835" y="550" font-size="20">Upload whole protocol · monitor state</text>
+    <text x="835" y="580" font-size="20">Robot executes individual motion segments</text>
+    <rect x="60" y="480" width="410" height="130" rx="10" fill="#edf4ed" stroke="#56755b" stroke-width="2"/>
+    <text x="265" y="516" font-size="23" font-weight="bold">Microphone and numerical analysis</text>
+    <text x="265" y="550" font-size="20">Record waveform · align command timing</text>
+    <text x="265" y="580" font-size="20">Estimate spectral evidence and uncertainty</text>
+    <g font-size="18">
+      <text x="237" y="171">Goals / revisions</text>
+      <text x="438" y="190">Reports</text>
+      <text x="550" y="261">Code and</text><text x="550" y="285">parameters</text>
+      <text x="835" y="405">Validated protocol</text>
+      <text x="550" y="522">Sound and</text><text x="550" y="546">timing records</text>
+      <text x="265" y="405">Measurements for next round</text>
+    </g>
+    <text x="550" y="678" font-size="22" font-weight="bold">Acoustic feedback closes between experiments</text>
+    <text x="550" y="710" font-size="20">No online audio correction in playback · No camera-driven decisions</text>
+  </g>
+  <g fill="none" stroke="#425b6c" stroke-width="2.5" marker-end="url(#arrow)">
+    <path d="M 150 125 V 210"/>
+    <path d="M 390 220 V 135"/>
+    <path d="M 470 310 H 620"/>
+    <path d="M 835 350 V 383 M 835 420 V 470"/>
+    <path d="M 630 570 H 480"/>
+    <path d="M 265 480 V 428 M 265 382 V 360"/>
+  </g>
+</svg>

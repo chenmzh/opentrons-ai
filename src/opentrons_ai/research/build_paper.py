@@ -46,7 +46,7 @@ def figures(data, output):
     import matplotlib.pyplot as plt
     import numpy as np
 
-    plt.rcParams.update({"font.size": 10, "svg.fonttype": "none"})
+    plt.rcParams.update({"font.size": 10, "svg.fonttype": "none", "pdf.fonttype": 42})
     palette = ["#22577a", "#b85435"]
     fig, axes = plt.subplots(1, 2, figsize=(10.4, 3.6), layout="constrained")
     for run, color, marker, label in zip(
@@ -151,6 +151,12 @@ def render_article(source, output, language):
     import markdown
 
     manuscript = (source / f"ot2-motor-music-paper.{language}.md").read_text()
+    architecture = base64.b64encode((source / "figures/workflow.svg").read_bytes()).decode()
+    manuscript = manuscript.replace(
+        "<!-- FIGURE_ARCHITECTURE -->",
+        f'<figure><img alt="Human–AI acoustic feedback architecture" '
+        f'src="data:image/svg+xml;base64,{architecture}"></figure>',
+    )
     for token, filename in [("RANGE", "range"), ("RHYTHM", "rhythm")]:
         encoded = base64.b64encode((output / f"figure-{filename}.svg").read_bytes()).decode()
         manuscript = manuscript.replace(
@@ -159,7 +165,7 @@ def render_article(source, output, language):
         )
     body = markdown.markdown(manuscript, extensions=["tables", "fenced_code"])
     body = re.sub(
-        r"</figure>\s*<p>(<strong>(?:图 [12]．|Figure [12]\. ).*?</p>)",
+        r"</figure>\s*<p>(<strong>(?:图 \d+．|Figure \d+\. ).*?</p>)",
         r"<figcaption><p>\1</figcaption></figure>",
         body,
         flags=re.S,

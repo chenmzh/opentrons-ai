@@ -2,9 +2,10 @@
 
 ## Project Structure & Module Organization
 
-This project is for AI-assisted control of an Opentrons OT-2. It contains documentation only. Read `README.md` for scope and `NOTES.md` for recorded network configuration. As implementation is introduced, use:
+This project is for AI-assisted control of an Opentrons OT-2. The foundation dashboard supports observation, hardware inventory, accounts, and optional pictures. Read `README.md` for scope and `NOTES.md` for recorded network configuration. Use:
 
 - `src/` for production code, grouped by feature or package.
+- `frontend/` for the React/TypeScript UI; keep all interface strings in `src/i18n.ts` with Chinese and English entries.
 - `tests/` for automated tests that mirror the `src/` hierarchy.
 - `protocols/` for versioned Opentrons protocols and `assets/` for labware definitions.
 - `docs/` for design notes and user-facing documentation.
@@ -13,7 +14,7 @@ Do not commit generated outputs, caches, virtual environments, credentials, or l
 
 ## Build, Test, and Development Commands
 
-No runtime, build system, formatter, or test runner is configured. Do not present proposed commands as executable. Use `git diff --check` to check patch whitespace. Document installation, simulation, testing, and execution commands when implemented.
+`make setup` installs dashboard dependencies; `make build` builds the frontend; `make run` serves loopback HTTP. See `docs/dashboard.md` for admin creation and HTTPS team access. `make test` runs mocked backend tests; `make test-ui` runs Playwright; `make lint` checks Ruff and Prettier. Protocol-specific tests remain separate. Use `git diff --check` for patch whitespace.
 
 ## Coding Style & Naming Conventions
 
@@ -34,6 +35,8 @@ For future OpenAI integration, consult `docs/openai-guidance.md`. These instruct
 ## Robot Control
 
 Treat recorded health checks as historical. Verify current robot state before execution. Use the user's authorized protocol and confirmed deck configuration; do not invent labware, pipettes, or volumes. Validate and simulate protocols before physical execution. After an ambiguous timeout, inspect run state before retrying a command that could repeat liquid handling.
+
+Use camera images only for operator assistance and optional run records. Do not use images or capture failures to drive planning, validation, approval, or robot-control decisions. Automated vision feedback is deferred; camera availability must not gate execution.
 
 ## Testing Guidelines
 

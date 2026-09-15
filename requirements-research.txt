@@ -1,0 +1,4 @@
+# Offline analysis and paper rendering; separate from robot/dashboard dependencies.
+numpy==2.2.6
+matplotlib==3.10.8
+Markdown==3.8.2

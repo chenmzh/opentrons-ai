@@ -7,6 +7,7 @@
 
 # Python environments and caches
 .venv/
+.venv-research/
 venv/
 __pycache__/
 *.py[cod]
@@ -29,3 +30,11 @@ runs/
 .idea/
 .vscode/
 .DS_Store
+
+# Console credentials, database, certificates, and generated UI files
+.local/
+node_modules/
+frontend/dist/
+frontend/test-results/
+frontend/playwright-report/
+.pnpm-store/
